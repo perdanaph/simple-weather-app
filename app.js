@@ -1,5 +1,6 @@
 const express = require('express')
-const apiKey = '9227c05348e4f819dcf023d3de19fb1a'
+require('dotenv').config()
+const apiKey = process.env.API_KEY
 const bodyParser = require('body-parser')
 const request = require('request')
 const { resolve } = require('path')
