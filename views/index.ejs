@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <div class="w-full mx-auto flex justify-center items-center h-screen font-sans">
+      <div class="w-10/12" >
+        <form action="/" method="post">
+            <label for="city" class="label block text-center mb-3 font-bold text-lg">City</label>
+            <input type="text" name="city" class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-indigo-500/75 rounded-sm py-3 px-3 focus:outline-none focus:border-indigo-500/50 focus:ring-indigo-500/50 focus:ring-2 shadow-md sm:text-sm" placeholder="Masukkan Kotamu">
+            <input type="submit" value="Get Weather" class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-white font-semibold rounded-xl py-2 px-6 mt-6" style="cursor:pointer"></input>
+          </form>
+          <% if (weather !== null) { %>
+            <p class="block font-medium text-center"> <%= weather %> </p>
+            <% } %> 
+          <% if (error !== null) {%>
+            <p class="block font-medium text-center"> <%= error %> </p>
+            <% } %>         
+      </div>
+    </div>
+  </body>
+</html>
