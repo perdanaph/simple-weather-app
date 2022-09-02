@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const { resolve } = require('path')
 const app = express()
-const port = 9000
+const port = 3000
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
@@ -21,15 +21,19 @@ app.post('/', (req, res) => {
   const city = req.body.city
   const urlAPI = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
   request(urlAPI, (error, response, body) => {
-    if (error) {
-      res.render('index', { weather: null, error: 'ada yang error' })
+    try {
+      if (error) {
+        res.render('index', { weather: null, error: 'ada yang error' })
+      }
+      const weather = JSON.parse(body)
+      if (weather.main === undefined) {
+        res.render('index', { weather: null, message: 'Tidak ada kota yang diinput, SIilahkan input kan kota' })
+      }
+      const weatherResponse = `suhu di ${weather.name} saat ini adalah ${weather.main.temp}° C`
+      res.render('index', { weather: weatherResponse, error: null })
+    } catch (err) {
+      res.render('index', { weather: null, error: 'Mohon masukkan kota' })
     }
-    const weather = JSON.parse(body)
-    if (weather.main === undefined) {
-      res.render('index', { weather: null, message: 'Tidak ada kota yang diinput, SIilahkan input kan kota' })
-    }
-    const weatherResponse = `suhu di ${weather.name} saat ini adalah ${weather.main.temp}° C`
-    res.render('index', { weather: weatherResponse, error: null })
   })
 })
 
